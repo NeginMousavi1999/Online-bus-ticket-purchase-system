@@ -15,6 +15,7 @@ public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+    private String name;
     @OneToMany(mappedBy = "company")
     private List<Ticket> tickets = new ArrayList<>();
 }
