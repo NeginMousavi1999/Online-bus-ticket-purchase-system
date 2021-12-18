@@ -2,7 +2,10 @@ package model.member;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 /**
  * @author Negin Mousavi
@@ -13,7 +16,6 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
-    @Column(unique = true)
-    protected String username;
-    protected String password;
+    private String nationalCode;
+    private String phoneNumber;
 }

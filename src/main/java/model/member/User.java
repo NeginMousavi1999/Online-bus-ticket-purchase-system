@@ -1,10 +1,12 @@
 package model.member;
 
+import enumuration.Gender;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import model.Ticket;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 /**
  * @author Negin Mousavi
@@ -14,4 +16,13 @@ import javax.persistence.Entity;
 @Getter
 @Entity
 public class User extends Person {
+    @Column(name = "first_name")
+    private String givenName;
+    @Column(name = "last_name")
+    private String surName;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+    private int age;
+    @OneToOne
+    private Ticket ticket;
 }

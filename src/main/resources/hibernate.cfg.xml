@@ -5,7 +5,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/bus-ticket-system</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/bus_ticket_system</property>
         <property name="connection.username">root</property>
         <property name="connection.password">123456</property>
         <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
@@ -16,8 +16,8 @@
         <mapping class="model.member.Person"/>
         <mapping class="model.member.Manager"/>
         <mapping class="model.member.User"/>
+        <mapping class="model.Ticket"/>
         <mapping class="model.Bus"/>
         <mapping class="model.Company"/>
-        <mapping class="model.Ticket"/>
     </session-factory>
 </hibernate-configuration>

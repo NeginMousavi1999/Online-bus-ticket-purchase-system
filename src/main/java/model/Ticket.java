@@ -13,10 +13,12 @@ import java.sql.Time;
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
-    @ManyToOne
+    private int id;
+    private String origin;
+    private String destination;
+    @ManyToOne(cascade = CascadeType.ALL)
     private Company company;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Bus bus;
     private Time departureTime;
     private Time arrivalApproximateTime;

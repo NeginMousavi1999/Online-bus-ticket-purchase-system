@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 /**
@@ -14,5 +15,7 @@ import javax.persistence.Entity;
 @Getter
 @Entity
 public class Manager extends Person {
-
+    @Column(unique = true)
+    protected String username;
+    protected String password;
 }

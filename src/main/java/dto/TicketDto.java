@@ -11,7 +11,6 @@ import java.sql.Time;
  */
 @Data
 public class TicketDto {
-    private int id;
     private Company company;
     private Bus bus;
     private Time departureTime;

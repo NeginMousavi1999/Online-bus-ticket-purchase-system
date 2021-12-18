@@ -15,9 +15,10 @@ import java.util.List;
 public class Bus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private int id;
     private int totalSeats;
     private int seatsRemaining;
+    @Enumerated(EnumType.STRING)
     private BusType type;
     @OneToMany(mappedBy = "bus")
     private List<Ticket> tickets = new ArrayList<>();
