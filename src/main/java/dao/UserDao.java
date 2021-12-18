@@ -3,5 +3,5 @@ package dao;
 /**
  * @author Negin Mousavi
  */
-public class UserDao extends BaseDao{
+public class UserDao extends BaseDao {
 }

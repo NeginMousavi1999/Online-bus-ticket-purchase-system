@@ -13,8 +13,11 @@
         <property name="connection.pool_size">10</property>
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
-        <mapping class="model.Person"/>
-        <mapping class="model.Manager"/>
-        <mapping class="model.User"/>
+        <mapping class="model.member.Person"/>
+        <mapping class="model.member.Manager"/>
+        <mapping class="model.member.User"/>
+        <mapping class="model.Bus"/>
+        <mapping class="model.Company"/>
+        <mapping class="model.Ticket"/>
     </session-factory>
 </hibernate-configuration>

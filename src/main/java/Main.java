@@ -1,4 +1,4 @@
-import model.Manager;
+import model.member.Manager;
 import service.ManagerService;
 
 /**

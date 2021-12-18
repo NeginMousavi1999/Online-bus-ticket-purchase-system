@@ -1,7 +1,7 @@
 package service;
 
 import dao.ManagerDao;
-import model.Manager;
+import model.member.Manager;
 
 /**
  * @author Negin Mousavi

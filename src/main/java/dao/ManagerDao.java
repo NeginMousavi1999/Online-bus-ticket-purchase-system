@@ -1,6 +1,6 @@
 package dao;
 
-import model.Manager;
+import model.member.Manager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
