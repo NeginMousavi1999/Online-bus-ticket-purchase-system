@@ -15,4 +15,13 @@ public class ManagerDao extends BaseDao {
         transaction.commit();
         session.close();
     }
+
+    public Manager get() {
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Manager manager = session.get(Manager.class, 1);
+        transaction.commit();
+        session.close();
+        return manager;
+    }
 }

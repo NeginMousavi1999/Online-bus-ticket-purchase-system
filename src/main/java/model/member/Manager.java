@@ -16,6 +16,18 @@ import javax.persistence.Entity;
 @Entity
 public class Manager extends Person {
     @Column(unique = true)
-    protected String username;
-    protected String password;
+    private String username;
+    private String password;
+
+
+    private static Manager manager;
+
+    public synchronized static Manager getInstance() {
+        if (manager == null)
+            manager = new Manager();
+        return manager;
+    }
+
+    protected Manager() {
+    }
 }

@@ -16,13 +16,7 @@ public class Main {
     static TicketService ticketService = new TicketService();
 
     public static void main(String[] args) {
-        Manager manager = new Manager();
-        manager.setUsername("admin");
-        manager.setPassword("admin");
-        manager.setNationalCode("0021899436");
-        manager.setPhoneNumber("09381408292");
-        managerService.save(manager);
-
+        managerService.init();
 
         Company company = new Company();
         company.setName("Homa");
