@@ -29,6 +29,6 @@ public class TicketBuyTest {
     @Test
     void givenCountOfTicketMoreThanRemaining_WhenBuyCalls_ThenExceptionResponseReturn() {
         Exception exception = assertThrows(RuntimeException.class, () -> ticket.buy(10));
-        assertEquals("not enough tickets!", exception.getMessage());
+        assertEquals("*** not enough tickets! ***", exception.getMessage());
     }
 }
