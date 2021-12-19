@@ -15,6 +15,8 @@ public class BusService {
 
     public Bus getRandomByType(BusType busType) {
         List<Bus> buses = busDao.get(busType);
+        if (buses.size() == 0)
+            throw new RuntimeException("*** we have n't this type bus... Excuse Us... ***");
         int randomIndex = generateRandomInt(buses.size());
         return buses.get(randomIndex);
     }
