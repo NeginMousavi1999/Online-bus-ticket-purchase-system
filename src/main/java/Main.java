@@ -1,12 +1,13 @@
-import enumuration.BusType;
 import model.Bus;
 import model.Company;
 import model.Ticket;
+import model.builder.TicketBuilder;
 import model.member.Manager;
 import service.ManagerService;
 import service.TicketService;
 
 import java.sql.Time;
+import java.util.Scanner;
 
 /**
  * @author Negin Mousavi
@@ -14,30 +15,73 @@ import java.sql.Time;
 public class Main {
     static ManagerService managerService = new ManagerService();
     static TicketService ticketService = new TicketService();
+    static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         managerService.init();
 
-        Company company = new Company();
-        company.setName("Homa");
+        System.out.print("Hi ^_^ welcome to our online bus ticket...\nlogin as 1.admin or 2.user?(1/2): ");
+        String loginAnswer = scanner.nextLine();
+        switch (loginAnswer) {
+            case "1":
+                loginAdmin();
+                break;
+            case "2":
+                loginUser();
+                break;
+            default:
+                printInvalidInput();
+        }
+    }
 
-        Bus bus = new Bus();
-        bus.setType(BusType.CLASS_A);
-        bus.setTotalSeats(20);
-        bus.setSeatsRemaining(20);
+    private static void printInvalidInput() {
+        System.out.println("invalid input!");
+    }
 
-        Ticket ticket = new Ticket();
-        ticket.setOrigin("Tehran");
-        ticket.setDestination("NewYork");
-        ticket.setBus(bus);
-        ticket.setCompany(company);
-        ticket.setCost(10000);
-        ticket.setDepartureTime(new Time(12));
-        ticket.setArrivalApproximateTime(new Time(15));
+    private static void loginUser() {
+        System.out.println("to know about our trips, please answer the questions:");
+        System.out.print("orion: ");
+        String orion = scanner.nextLine();
+        System.out.print("destination: ");
+        String destination = scanner.nextLine();
+        System.out.print("date: ");
+        String date = scanner.nextLine();
+        System.out.print("count of results: ");
+        String countOfResults = scanner.nextLine();
+    }
 
-        company.getTickets().add(ticket);
-        bus.getTickets().add(ticket);
+    private static void loginAdmin() {
+        Manager manager = managerService.getManager();
+        System.out.print("enter username: ");
+        String username = scanner.nextLine();
+        System.out.print("enter password: ");
+        String password = scanner.nextLine();
+        if (username.equals(manager.getUsername()) && password.equals(manager.getPassword())) {
+            System.out.println("*** Admin Menu ***");
+            // TODO : belows :)
+            //تعداد بلیط های فروخته شده
+            // تعداد صندلی های باقیمانده بر اساس نوع اتوبوس
+            // به ترتیب تاریخ حرکت
+            addNewTicket();
+        } else
+            System.out.println("incorrect username or password!");
+    }
 
+    private static void addNewTicket() {
+        TicketBuilder ticketBuilder = new TicketBuilder();
+        Ticket ticket = ticketBuilder
+                .withBus("")
+                .withDestination("")
+                .withCost(0)
+                .withDepartureTime(new Time(0))
+                .withArrivalApproximateTime(new Time(0))
+                .withCompany(new Company())
+                .withBus(new Bus())
+                .build();
         ticketService.save(ticket);
+    }
+
+    private int getCountOfSeatsPerBusClass(){
+        return 0;
     }
 }
