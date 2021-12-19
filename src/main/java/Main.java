@@ -10,7 +10,8 @@ import service.CompanyService;
 import service.ManagerService;
 import service.TicketService;
 
-import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 /**
@@ -46,14 +47,15 @@ public class Main {
 
     private static void loginUser() {
         System.out.println("to know about our trips, please answer the questions:");
-        System.out.print("orion: ");
-        String orion = scanner.nextLine();
+        System.out.print("origin: ");
+        String origin = scanner.nextLine();
         System.out.print("destination: ");
         String destination = scanner.nextLine();
         System.out.print("date: ");
         String date = scanner.nextLine();
         System.out.print("count of results: ");
         String countOfResults = scanner.nextLine();
+
     }
 
     private static void loginAdmin() {
@@ -105,7 +107,11 @@ public class Main {
                 addNewBus();
                 break;
             case "3":
-                addNewTicket();
+                try {
+                    addNewTicket();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
             default:
                 printInvalidInput();
@@ -143,7 +149,7 @@ public class Main {
         companyService.save(company);
     }
 
-    private static void addNewTicket() {
+    private static void addNewTicket() throws ParseException {
         Bus bus;
         Company company;
 
@@ -180,14 +186,19 @@ public class Main {
         double cost = calculateTicketCostByBusTypeOriginDestination(bus, origin, destination);
         if (cost == -1)
             return;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        System.out.print("enter departure time(yyyy-MM-dd hh:mm:ss): ");
+        String departureTime = scanner.nextLine();
+        System.out.print("enter arrival approximate time(yyyy-MM-dd hh:mm:ss): ");
+        String arrivalApproximateTime = scanner.nextLine();
 
         TicketBuilder ticketBuilder = new TicketBuilder();
         Ticket ticket = ticketBuilder
                 .withOrigin(origin)
                 .withDestination(destination)
                 .withCost(cost)
-                .withDepartureTime(new Time(0))//TODO
-                .withArrivalApproximateTime(new Time(0))
+                .withDepartureTime(simpleDateFormat.parse(departureTime))
+                .withArrivalApproximateTime(simpleDateFormat.parse(arrivalApproximateTime))
                 .withCompany(company)
                 .withBus(bus)
                 .build();
