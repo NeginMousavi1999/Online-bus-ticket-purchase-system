@@ -1,7 +1,5 @@
 package dao;
 
-import enumuration.BusType;
-import model.Bus;
 import model.Company;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
