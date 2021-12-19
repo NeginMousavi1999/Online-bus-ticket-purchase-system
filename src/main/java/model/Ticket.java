@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.Date;
 
 /**
  * @author Negin Mousavi
@@ -20,8 +21,8 @@ public class Ticket {
     private Company company;
     @ManyToOne(cascade = CascadeType.ALL)
     private Bus bus;
-    private Time departureTime;
-    private Time arrivalApproximateTime;
+    private Date departureTime;
+    private Date arrivalApproximateTime;
     private double cost;
 
     public void buy(int count) {

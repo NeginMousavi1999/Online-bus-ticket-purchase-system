@@ -5,6 +5,7 @@ import model.Company;
 import model.Ticket;
 
 import java.sql.Time;
+import java.util.Date;
 
 /**
  * @author Negin Mousavi
@@ -30,13 +31,13 @@ public class TicketBuilder {
         return this;
     }
 
-    public TicketBuilder withArrivalApproximateTime(Time time) {
-        ticket.setArrivalApproximateTime(time);
+    public TicketBuilder withArrivalApproximateTime(Date date) {
+        ticket.setArrivalApproximateTime(date);
         return this;
     }
 
-    public TicketBuilder withDepartureTime(Time time) {
-        ticket.setDepartureTime(time);
+    public TicketBuilder withDepartureTime(Date date) {
+        ticket.setDepartureTime(date);
         return this;
     }
 
