@@ -20,7 +20,7 @@ public class TicketBuilder {
         return ticket;
     }
 
-    public TicketBuilder withBus(String origin) {
+    public TicketBuilder withOrigin(String origin) {
         ticket.setOrigin(origin);
         return this;
     }
