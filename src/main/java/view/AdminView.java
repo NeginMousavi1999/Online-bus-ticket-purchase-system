@@ -1,3 +1,5 @@
+package view;
+
 import enumuration.BusType;
 import enumuration.CityValue;
 import model.Bus;
@@ -17,48 +19,14 @@ import java.util.Scanner;
 /**
  * @author Negin Mousavi
  */
-public class Main {
-    static ManagerService managerService = new ManagerService();
-    static TicketService ticketService = new TicketService();
-    static CompanyService companyService = new CompanyService();
-    static BusService busService = new BusService();
-    static Scanner scanner = new Scanner(System.in);
+public class AdminView {
+    private final ManagerService managerService = new ManagerService();
+    private final TicketService ticketService = new TicketService();
+    private final CompanyService companyService = new CompanyService();
+    private final BusService busService = new BusService();
+    private final Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
-        managerService.init();
-
-        System.out.print("Hi ^_^ welcome to our online bus ticket...\nlogin as 1.admin or 2.user?(1/2): ");
-        String loginAnswer = scanner.nextLine();
-        switch (loginAnswer) {
-            case "1":
-                loginAdmin();
-                break;
-            case "2":
-                loginUser();
-                break;
-            default:
-                printInvalidInput();
-        }
-    }
-
-    private static void printInvalidInput() {
-        System.out.println("invalid input!");
-    }
-
-    private static void loginUser() {
-        System.out.println("to know about our trips, please answer the questions:");
-        System.out.print("origin: ");
-        String origin = scanner.nextLine();
-        System.out.print("destination: ");
-        String destination = scanner.nextLine();
-        System.out.print("date: ");
-        String date = scanner.nextLine();
-        System.out.print("count of results: ");
-        String countOfResults = scanner.nextLine();
-
-    }
-
-    private static void loginAdmin() {
+    public void loginAdmin() {
         Manager manager = managerService.getManager();
         System.out.print("enter username: ");
         String username = scanner.nextLine();
@@ -81,7 +49,7 @@ public class Main {
                         System.out.println("...end of admin role...");
                         break loop;
                     default:
-                        printInvalidInput();
+                        Main.printInvalidInput();
                 }
             }
             // TODO : belows :)
@@ -92,11 +60,7 @@ public class Main {
             System.out.println("incorrect username or password!");
     }
 
-    private static void showInformation() {//TODO
-
-    }
-
-    private static void addNewInformation() {
+    private void addNewInformation() {
         System.out.print("what do you wanna add?\n1.Company\n2.Bus\n3.Ticket\nyour answer: ");
         String answer = scanner.nextLine();
         switch (answer) {
@@ -114,11 +78,19 @@ public class Main {
                 }
                 break;
             default:
-                printInvalidInput();
+                Main.printInvalidInput();
         }
     }
 
-    private static void addNewBus() {
+    private void addNewCompany() {
+        System.out.print("company name: ");
+        String name = scanner.nextLine();
+        Company company = new Company();
+        company.setName(name);
+        companyService.save(company);
+    }
+
+    private void addNewBus() {
         Bus bus = new Bus();
         System.out.print("enter total seats: ");
         int seats = Integer.parseInt(scanner.nextLine());
@@ -132,7 +104,7 @@ public class Main {
                 bus.setType(BusType.REGULAR);
                 break;
             default:
-                printInvalidInput();
+                Main.printInvalidInput();
                 System.out.println("...set default type...");
                 bus.setType(BusType.REGULAR);
         }
@@ -141,15 +113,7 @@ public class Main {
         busService.save(bus);
     }
 
-    private static void addNewCompany() {
-        System.out.print("company name: ");
-        String name = scanner.nextLine();
-        Company company = new Company();
-        company.setName(name);
-        companyService.save(company);
-    }
-
-    private static void addNewTicket() throws ParseException {
+    private void addNewTicket() throws ParseException {
         Bus bus;
         Company company;
 
@@ -164,7 +128,7 @@ public class Main {
                     bus = busService.getRandomByType(BusType.REGULAR);
                     break;
                 default:
-                    printInvalidInput();
+                    Main.printInvalidInput();
                     System.out.println("...default type...");
                     bus = busService.getRandomByType(BusType.REGULAR);
             }
@@ -220,7 +184,7 @@ public class Main {
         return (originValue + destinationValue) * BusType.getAbbrByValue(bus.getType()) * 10000;
     }
 
-    private int getCountOfSeatsPerBusClass() {
-        return 0;
+    private void showInformation() {//TODO
+
     }
 }
