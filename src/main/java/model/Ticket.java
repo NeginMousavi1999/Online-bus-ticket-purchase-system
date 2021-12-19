@@ -23,4 +23,12 @@ public class Ticket {
     private Time departureTime;
     private Time arrivalApproximateTime;
     private double cost;
+
+    public void buy(int count) {
+        int seatsRemaining = bus.getSeatsRemaining();
+        if (count > seatsRemaining)
+            throw new RuntimeException("not enough tickets!");
+
+        bus.setSeatsRemaining(seatsRemaining - count);
+    }
 }
