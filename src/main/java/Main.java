@@ -1,4 +1,5 @@
 import enumuration.BusType;
+import enumuration.CityValue;
 import model.Bus;
 import model.Company;
 import model.Ticket;
@@ -142,18 +143,70 @@ public class Main {
         companyService.save(company);
     }
 
-    private static void addNewTicket() {//TODO
+    private static void addNewTicket() {
+        Bus bus;
+        Company company;
+
+        System.out.print("enter bus type: 1.vip 2.regular\ntype: ");
+        String type = scanner.nextLine();
+        try {
+            switch (type) {
+                case "1":
+                    bus = busService.getRandomByType(BusType.VIP);
+                    break;
+                case "2":
+                    bus = busService.getRandomByType(BusType.REGULAR);
+                    break;
+                default:
+                    printInvalidInput();
+                    System.out.println("...default type...");
+                    bus = busService.getRandomByType(BusType.REGULAR);
+            }
+
+            System.out.print("enter company name: ");
+            String companyName = scanner.nextLine();
+            company = companyService.getByName(companyName);
+
+        } catch (RuntimeException re) {
+            System.out.println(re.getLocalizedMessage());
+            return;
+        }
+
+        System.out.print("enter origin: ");
+        String origin = scanner.nextLine();
+        System.out.print("enter destination: ");
+        String destination = scanner.nextLine();
+
+        double cost = calculateTicketCostByBusTypeOriginDestination(bus, origin, destination);
+        if (cost == -1)
+            return;
+
         TicketBuilder ticketBuilder = new TicketBuilder();
         Ticket ticket = ticketBuilder
-                .withBus("")
-                .withDestination("")
-                .withCost(0)
-                .withDepartureTime(new Time(0))
+                .withOrigin(origin)
+                .withDestination(destination)
+                .withCost(cost)
+                .withDepartureTime(new Time(0))//TODO
                 .withArrivalApproximateTime(new Time(0))
-/*                .withCompany(new Company())
-                .withBus(new Bus())*/
+                .withCompany(company)
+                .withBus(bus)
                 .build();
         ticketService.save(ticket);
+    }
+
+    public static double calculateTicketCostByBusTypeOriginDestination(Bus bus, String origin, String destination) {
+        double originValue;
+        double destinationValue;
+
+        try {
+            originValue = CityValue.getAbbrByValue(CityValue.valueOf(origin.toUpperCase()));
+            destinationValue = CityValue.getAbbrByValue(CityValue.valueOf(destination.toUpperCase()));
+        } catch (IllegalArgumentException e) {
+            System.out.println("*** we have n't trip for this city! ***");
+            return -1;
+        }
+
+        return (originValue + destinationValue) * BusType.getAbbrByValue(bus.getType()) * 10000;
     }
 
     private int getCountOfSeatsPerBusClass() {
