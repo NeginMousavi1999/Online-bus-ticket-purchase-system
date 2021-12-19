@@ -22,4 +22,14 @@ public class Bus {
     private BusType type;
     @OneToMany(mappedBy = "bus")
     private List<Ticket> tickets = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Bus{" +
+                "id=" + id +
+                ", totalSeats=" + totalSeats +
+                ", seatsRemaining=" + seatsRemaining +
+                ", type=" + type +
+                '}';
+    }
 }

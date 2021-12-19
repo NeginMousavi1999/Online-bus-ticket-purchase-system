@@ -18,4 +18,12 @@ public class Company {
     private String name;
     @OneToMany(mappedBy = "company")
     private List<Ticket> tickets = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
