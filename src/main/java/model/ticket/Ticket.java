@@ -29,13 +29,11 @@ public class Ticket {
     @Temporal(TemporalType.TIMESTAMP)
     private Date arrivalApproximateTime;
     private double cost;
-    private boolean status;
+    private int count;
 
     public void buy(int count) {
-        int seatsRemaining = bus.getSeatsRemaining();
-        if (count > seatsRemaining)
+        if (count > this.count)
             throw new RuntimeException("*** not enough tickets! ***");
-
-        bus.setSeatsRemaining(seatsRemaining - count);
+        this.count -= count;
     }
 }

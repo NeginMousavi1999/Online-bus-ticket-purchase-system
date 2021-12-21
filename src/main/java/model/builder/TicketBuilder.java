@@ -60,8 +60,8 @@ public class TicketBuilder {
         return this;
     }
 
-    public TicketBuilder withStatus(boolean status) {
-        ticket.setStatus(status);
+    public TicketBuilder withCount(int count) {
+        ticket.setCount(count);
         return this;
     }
 }

@@ -33,6 +33,7 @@ public class TicketService {
         ticketDto.setCompany(ticket.getCompany());
         ticketDto.setDepartureDate(ticket.getDepartureDate());
         ticketDto.setDepartureTime(ticket.getDepartureTime());
+        ticketDto.setCount(ticket.getCount());
         return ticketDto;
     }
 

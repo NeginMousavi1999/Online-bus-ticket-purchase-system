@@ -152,7 +152,14 @@ public class AdminView {
         String departureTime = scanner.nextLine();
         System.out.print("enter arrival approximate time(yyyy-MM-dd hh:mm:ss): ");
         String arrivalApproximateTime = scanner.nextLine();
-
+        System.out.print("how many? ");
+        int count = Integer.parseInt(scanner.nextLine());
+        try {
+            bus.reserve(count);
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return;
+        }
         TicketBuilder ticketBuilder = new TicketBuilder();
         Ticket ticket = ticketBuilder
                 .withOrigin(origin)
@@ -163,7 +170,7 @@ public class AdminView {
                 .withArrivalApproximateTime(simpleDateFormat.parse(arrivalApproximateTime))
                 .withCompany(company)
                 .withBus(bus)
-                .withStatus(false)
+                .withCount(count)
                 .build();
         ticketService.save(ticket);
     }

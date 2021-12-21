@@ -33,4 +33,10 @@ public class Bus {
                 ", type=" + type +
                 '}';
     }
+
+    public void reserve(int count) {
+        if (count > seatsRemaining)
+            throw new RuntimeException("no seats!");
+        seatsRemaining -= count;
+    }
 }

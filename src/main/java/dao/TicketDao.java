@@ -34,7 +34,7 @@ public class TicketDao extends BaseDao {
 
         SimpleExpression originCond = Restrictions.eq("t.origin", request.getOrigin());
         SimpleExpression destinationCond = Restrictions.eq("t.destination", request.getDestination());
-        SimpleExpression statusCond = Restrictions.eq("t.status", false);
+        SimpleExpression statusCond = Restrictions.ge("t.count", 1);
         SimpleExpression dateCond;
         LogicalExpression and = Restrictions.and(originCond, destinationCond);
         and = Restrictions.and(and, statusCond);

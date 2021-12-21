@@ -17,4 +17,5 @@ public class TicketDto {
     private Date departureTime;
     private Date departureDate;
     private double cost;
+    private int count;
 }
