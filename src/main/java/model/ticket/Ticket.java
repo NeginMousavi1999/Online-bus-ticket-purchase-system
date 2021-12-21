@@ -29,6 +29,7 @@ public class Ticket {
     @Temporal(TemporalType.TIMESTAMP)
     private Date arrivalApproximateTime;
     private double cost;
+    private boolean status;
 
     public void buy(int count) {
         int seatsRemaining = bus.getSeatsRemaining();

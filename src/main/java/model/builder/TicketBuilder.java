@@ -59,4 +59,9 @@ public class TicketBuilder {
         ticket.setBus(bus);
         return this;
     }
+
+    public TicketBuilder withStatus(boolean status) {
+        ticket.setStatus(status);
+        return this;
+    }
 }

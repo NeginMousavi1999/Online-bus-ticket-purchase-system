@@ -4,9 +4,9 @@ import enumuration.BusType;
 import enumuration.CityValue;
 import model.Bus;
 import model.Company;
-import model.ticket.Ticket;
 import model.builder.TicketBuilder;
 import model.member.Manager;
+import model.ticket.Ticket;
 import service.BusService;
 import service.CompanyService;
 import service.ManagerService;
@@ -163,6 +163,7 @@ public class AdminView {
                 .withArrivalApproximateTime(simpleDateFormat.parse(arrivalApproximateTime))
                 .withCompany(company)
                 .withBus(bus)
+                .withStatus(false)
                 .build();
         ticketService.save(ticket);
     }
