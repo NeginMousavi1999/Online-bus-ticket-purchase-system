@@ -1,5 +1,6 @@
 package model.member;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.GeneratedValue;
@@ -18,4 +19,7 @@ public class Person {
     protected int id;
     private String nationalCode;
     private String phoneNumber;
+
+    public Person() {
+    }
 }

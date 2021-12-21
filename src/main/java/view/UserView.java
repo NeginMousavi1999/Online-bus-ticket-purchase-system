@@ -1,12 +1,12 @@
 package view;
 
 import dto.TicketDto;
+import enumuration.Gender;
+import model.builder.UserBuilder;
+import model.member.User;
 import model.ticket.Ticket;
 import model.ticket.TicketViewRequest;
-import service.BusService;
-import service.CompanyService;
-import service.ManagerService;
-import service.TicketService;
+import service.*;
 import util.CreateScanner;
 
 import java.text.ParseException;
@@ -23,6 +23,7 @@ public class UserView {
     private final TicketService ticketService = new TicketService();
     private final CompanyService companyService = new CompanyService();
     private final BusService busService = new BusService();
+    private final UserService userService = new UserService();
     private final Scanner scanner = CreateScanner.getInstance();
 
     public void loginUser() {
@@ -47,7 +48,6 @@ public class UserView {
                 switch (answer) {
                     case "s":
                         showTicketDetail();
-                        //TODO choose ticket or not
                         break;
                     case "n":
                         if (result < pageSize) {
@@ -103,6 +103,60 @@ public class UserView {
         if (ticketById == null)
             throw new RuntimeException("no ticket with this id!");
         System.out.println(ticketById);
+        bookTicket(ticketById);
+    }
+
+    private void bookTicket(Ticket ticket) {
+        System.out.print("do you wanna book it?(y/n): ");
+        String answer = scanner.nextLine();
+        switch (answer) {
+            case "y":
+                getInformationForBookTicket(ticket);
+                break;
+            case "n":
+                return;
+            default:
+                Main.printInvalidInput();
+        }
+    }
+
+    private void getInformationForBookTicket(Ticket ticket) {
+        System.out.print("enter the count: ");
+        int count = Integer.parseInt(scanner.nextLine());
+        try {
+            ticket.buy(count);
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            return;
+        }
+        int index = 1;
+        while (index <= count) {
+            System.out.println("*** get information of user number " + index + " ***");
+            System.out.print("enter national code: ");
+            String nationalCode = scanner.nextLine();
+            System.out.print("enter phone number: ");
+            String phoneNumber = scanner.nextLine();
+            System.out.print("enter first name: ");
+            String givenName = scanner.nextLine();
+            System.out.print("enter last name: ");
+            String surName = scanner.nextLine();
+            System.out.print("enter gender(male/female): ");
+            Gender gender = Gender.valueOf(scanner.nextLine().toUpperCase());
+            System.out.print("enter age: ");
+            int age = Integer.parseInt(scanner.nextLine());
+            User user = UserBuilder.getBuilder()
+                    .withNationalCode(nationalCode)
+                    .withPhoneNumber(phoneNumber)
+                    .withGivenName(givenName)
+                    .withSurName(surName)
+                    .withGender(gender)
+                    .withAge(age)
+                    .withTicket(ticket)
+                    .build();
+            userService.save(user);
+            System.out.println("...DONE...");
+            index++;
+        }
     }
 
     private int showTickets(int currentPage, int pageSize, TicketViewRequest request) {

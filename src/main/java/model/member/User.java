@@ -1,6 +1,7 @@
 package model.member;
 
 import enumuration.Gender;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
