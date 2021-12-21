@@ -19,6 +19,11 @@ public class ManagerService {
     }
 
     public Manager getManager() {
-        return managerDao.get();
+        Manager manager = managerDao.get();
+        if (manager == null) {
+            init();
+            manager = managerDao.get();
+        }
+        return manager;
     }
 }

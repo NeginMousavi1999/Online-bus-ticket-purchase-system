@@ -4,7 +4,7 @@ import enumuration.Gender;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import model.Ticket;
+import model.ticket.Ticket;
 
 import javax.persistence.*;
 

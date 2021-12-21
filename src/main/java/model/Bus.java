@@ -2,6 +2,7 @@ package model;
 
 import enumuration.BusType;
 import lombok.Data;
+import model.ticket.Ticket;
 
 import javax.persistence.*;
 import java.util.ArrayList;

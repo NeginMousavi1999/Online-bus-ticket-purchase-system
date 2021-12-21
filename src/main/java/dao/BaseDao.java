@@ -1,11 +1,11 @@
 package dao;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import util.CreateSessionFactory;
 
 /**
  * @author Negin Mousavi
  */
 public class BaseDao {
-    SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+    SessionFactory sessionFactory = CreateSessionFactory.getInstance();
 }

@@ -2,9 +2,8 @@ package model.builder;
 
 import model.Bus;
 import model.Company;
-import model.Ticket;
+import model.ticket.Ticket;
 
-import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -38,6 +37,11 @@ public class TicketBuilder {
 
     public TicketBuilder withDepartureTime(Date date) {
         ticket.setDepartureTime(date);
+        return this;
+    }
+
+    public TicketBuilder withDepartureDate(Date date) {
+        ticket.setDepartureDate(date);
         return this;
     }
 

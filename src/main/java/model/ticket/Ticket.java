@@ -1,6 +1,8 @@
-package model;
+package model.ticket;
 
 import lombok.Data;
+import model.Bus;
+import model.Company;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,11 +18,15 @@ public class Ticket {
     private int id;
     private String origin;
     private String destination;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL) //TODO: remove cascadeAll
     private Company company;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL) //TODO: remove cascadeAll
     private Bus bus;
+    @Temporal(TemporalType.DATE)
+    private Date departureDate;
+    @Temporal(TemporalType.TIME)
     private Date departureTime;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date arrivalApproximateTime;
     private double cost;
 

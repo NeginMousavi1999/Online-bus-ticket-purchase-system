@@ -1,5 +1,6 @@
 package model;
 
+import model.ticket.Ticket;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

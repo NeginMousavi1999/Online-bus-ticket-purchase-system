@@ -4,13 +4,14 @@ import enumuration.BusType;
 import enumuration.CityValue;
 import model.Bus;
 import model.Company;
-import model.Ticket;
+import model.ticket.Ticket;
 import model.builder.TicketBuilder;
 import model.member.Manager;
 import service.BusService;
 import service.CompanyService;
 import service.ManagerService;
 import service.TicketService;
+import util.CreateScanner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,7 +25,7 @@ public class AdminView {
     private final TicketService ticketService = new TicketService();
     private final CompanyService companyService = new CompanyService();
     private final BusService busService = new BusService();
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = CreateScanner.getInstance();
 
     public void loginAdmin() {
         Manager manager = managerService.getManager();
@@ -52,10 +53,6 @@ public class AdminView {
                         Main.printInvalidInput();
                 }
             }
-            // TODO : belows :)
-            //تعداد بلیط های فروخته شده
-            // تعداد صندلی های باقیمانده بر اساس نوع اتوبوس
-            // به ترتیب تاریخ حرکت
         } else
             System.out.println("incorrect username or password!");
     }
@@ -162,6 +159,7 @@ public class AdminView {
                 .withDestination(destination)
                 .withCost(cost)
                 .withDepartureTime(simpleDateFormat.parse(departureTime))
+                .withDepartureDate(simpleDateFormat.parse(departureTime))
                 .withArrivalApproximateTime(simpleDateFormat.parse(arrivalApproximateTime))
                 .withCompany(company)
                 .withBus(bus)
