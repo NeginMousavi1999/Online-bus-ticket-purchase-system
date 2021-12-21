@@ -18,9 +18,9 @@ public class Ticket {
     private int id;
     private String origin;
     private String destination;
-    @ManyToOne(cascade = CascadeType.ALL) //TODO: remove cascadeAll
+    @ManyToOne
     private Company company;
-    @ManyToOne(cascade = CascadeType.ALL) //TODO: remove cascadeAll
+    @ManyToOne(cascade = CascadeType.ALL) //because of updating seatsRemaining
     private Bus bus;
     @Temporal(TemporalType.DATE)
     private Date departureDate;
