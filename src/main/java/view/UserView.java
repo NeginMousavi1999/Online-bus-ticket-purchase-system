@@ -1,6 +1,7 @@
 package view;
 
 import dto.TicketDto;
+import enumuration.BusType;
 import enumuration.Gender;
 import model.builder.UserBuilder;
 import model.member.User;
@@ -11,18 +12,17 @@ import util.CreateScanner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * @author Negin Mousavi
  */
 public class UserView {
-    private final ManagerService managerService = new ManagerService();
     private final TicketService ticketService = new TicketService();
-    private final CompanyService companyService = new CompanyService();
-    private final BusService busService = new BusService();
     private final UserService userService = new UserService();
     private final Scanner scanner = CreateScanner.getInstance();
 
@@ -161,13 +161,62 @@ public class UserView {
 
     private int showTickets(int currentPage, int pageSize, TicketViewRequest request) {
         List<TicketDto> ticketsDto = ticketService.showTicketsByPaging(currentPage, pageSize, request);
+        ticketsDto = filter(ticketsDto);
         System.out.printf("***** page number %d *****", (currentPage + 1));
         System.out.println();
         ticketsDto.forEach(System.out::println);
         return ticketsDto.size();
     }
 
-    private int getCountOfSeatsPerBusClass() {
-        return 0;
+    private List<TicketDto> filter(List<TicketDto> tickets) {
+        System.out.print("more filter?(y/n): ");
+        String moreFilter = scanner.nextLine();
+        if (moreFilter.equals("n"))
+            return tickets;
+        List<TicketDto> newTickets;
+        System.out.print("company name: ");
+        String companyName = scanner.nextLine();
+        if (companyName.length() != 0)
+            newTickets = tickets.stream().filter(ticket -> ticket.getCompany().getName().equals(companyName)).collect(Collectors.toList());
+        else {
+            System.out.println("optional company name");
+            newTickets = new ArrayList<>(tickets);
+        }
+        System.out.print("bus type: ");
+        try {
+            BusType busType = BusType.valueOf(scanner.nextLine().toUpperCase());
+            newTickets = newTickets.stream().filter(ticket -> ticket.getBus().getType().equals(busType)).collect(Collectors.toList());
+        } catch (IllegalArgumentException e) {
+            System.out.println("optional bus type");
+        }
+
+        double startCost;
+        double endCost;
+        System.out.print("cost range(split with ,): ");
+        String costRange = scanner.nextLine();
+        if (costRange.length() != 0) {
+            String[] costRanges = costRange.split(",");
+            startCost = Double.parseDouble(costRanges[0]);
+            endCost = Double.parseDouble(costRanges[1]);
+            newTickets = newTickets.stream().filter(ticket -> ticket.getCost() >= startCost)
+                    .filter(ticket -> ticket.getCost() <= endCost).collect(Collectors.toList());
+        }
+        System.out.print("date range(split with ,): ");
+        String dateRange = scanner.nextLine();
+        Date startDate;
+        Date endDate;
+        if (dateRange.length() != 0) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                String[] dateRanges = dateRange.split(",");
+                startDate = simpleDateFormat.parse(dateRanges[0]);
+                endDate = simpleDateFormat.parse(dateRanges[1]);
+                newTickets = newTickets.stream().filter(ticket -> ticket.getDepartureDate().compareTo(startDate) >= 0)
+                        .filter(ticket -> ticket.getDepartureDate().compareTo(endDate) <= 0).collect(Collectors.toList());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return newTickets;
     }
 }
