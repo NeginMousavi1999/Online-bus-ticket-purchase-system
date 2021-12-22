@@ -32,4 +32,15 @@ public class BusDao extends BaseDao {
         session.close();
         return list;
     }
+
+    public List<Bus> readAll() {
+        Session session = sessionFactory.openSession();
+        List<Bus> result;
+        session.beginTransaction();
+        String hql = "FROM Bus";
+        System.out.println(hql);
+        Query<Bus> query = session.createQuery(hql);
+        result = query.list();
+        return result;
+    }
 }

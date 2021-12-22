@@ -29,4 +29,8 @@ public class BusService {
     public void save(Bus bus) {
         busDao.save(bus);
     }
+
+    public List<Bus> showAll() {
+        return busDao.readAll();
+    }
 }

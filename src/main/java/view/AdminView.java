@@ -15,6 +15,7 @@ import util.CreateScanner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -190,7 +191,8 @@ public class AdminView {
         return (originValue + destinationValue) * BusType.getAbbrByValue(bus.getType()) * 10000;
     }
 
-    private void showInformation() {//TODO
-
+    private void showInformation() {
+        List<Bus> busList = busService.showAll();
+        busList.forEach(System.out::println);
     }
 }
