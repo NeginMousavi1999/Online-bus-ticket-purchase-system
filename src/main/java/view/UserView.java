@@ -56,14 +56,14 @@ public class UserView {
                             continue forContinuing;
                         }
                         start += pageSize;
-                        break;
+                        continue loop;
                     case "p":
                         if (start == 0) {
                             System.out.println("no previous page!");
                             continue forContinuing;
                         }
                         start -= pageSize;
-                        break;
+                        continue loop;
                     case "e":
                         System.out.println("bye bye");
                         break loop;

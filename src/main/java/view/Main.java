@@ -13,7 +13,6 @@ public class Main {
     private static final UserView userView = new UserView();
 
     public static void main(String[] args) {
-        //managerService.init();
 
         System.out.println("Hi ^_^ welcome to our online bus ticket...");
         loop:
