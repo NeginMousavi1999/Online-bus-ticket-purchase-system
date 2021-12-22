@@ -20,9 +20,6 @@ public class Manager extends Person {
     private String username;
     private String password;
 
-    protected Manager() {
-    }
-
     public synchronized static Manager getInstance() {
         if (manager == null)
             manager = new Manager();

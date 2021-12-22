@@ -10,12 +10,12 @@ public class CreateSessionFactory {
 
     private static SessionFactory sessionFactory;
 
+    private CreateSessionFactory() {
+    }
+
     public synchronized static SessionFactory getInstance() {
         if (sessionFactory == null)
             sessionFactory = new Configuration().configure().buildSessionFactory();
         return sessionFactory;
-    }
-
-    private CreateSessionFactory() {
     }
 }

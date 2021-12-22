@@ -1,8 +1,6 @@
 package service;
 
-import dao.ManagerDao;
 import dao.UserDao;
-import model.member.Manager;
 import model.member.User;
 
 /**

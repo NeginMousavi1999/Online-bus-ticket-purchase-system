@@ -1,6 +1,5 @@
 package view;
 
-import service.ManagerService;
 import util.CreateScanner;
 
 import java.util.Scanner;
@@ -9,7 +8,6 @@ import java.util.Scanner;
  * @author Negin Mousavi
  */
 public class Main {
-    private static final ManagerService managerService = new ManagerService();
     private static final Scanner scanner = CreateScanner.getInstance();
     private static final AdminView adminView = new AdminView();
     private static final UserView userView = new UserView();
@@ -41,5 +39,4 @@ public class Main {
     static void printInvalidInput() {
         System.out.println("invalid input!");
     }
-
 }

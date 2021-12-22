@@ -28,6 +28,21 @@ public class AdminView {
     private final BusService busService = new BusService();
     private final Scanner scanner = CreateScanner.getInstance();
 
+    public static double calculateTicketCostByBusTypeOriginDestination(Bus bus, String origin, String destination) {
+        double originValue;
+        double destinationValue;
+
+        try {
+            originValue = CityValue.getAbbrByValue(CityValue.valueOf(origin.toUpperCase()));
+            destinationValue = CityValue.getAbbrByValue(CityValue.valueOf(destination.toUpperCase()));
+        } catch (IllegalArgumentException e) {
+            System.out.println("*** we have n't trip for this city! ***");
+            return -1;
+        }
+
+        return (originValue + destinationValue) * BusType.getAbbrByValue(bus.getType()) * 10000;
+    }
+
     public void loginAdmin() {
         Manager manager = managerService.getManager();
         System.out.print("enter username: ");
@@ -161,8 +176,7 @@ public class AdminView {
             System.out.println(e.getLocalizedMessage());
             return;
         }
-        TicketBuilder ticketBuilder = new TicketBuilder();
-        Ticket ticket = ticketBuilder
+        Ticket ticket = TicketBuilder.getBuilder()
                 .withOrigin(origin)
                 .withDestination(destination)
                 .withCost(cost)
@@ -174,21 +188,6 @@ public class AdminView {
                 .withCount(count)
                 .build();
         ticketService.save(ticket);
-    }
-
-    public static double calculateTicketCostByBusTypeOriginDestination(Bus bus, String origin, String destination) {
-        double originValue;
-        double destinationValue;
-
-        try {
-            originValue = CityValue.getAbbrByValue(CityValue.valueOf(origin.toUpperCase()));
-            destinationValue = CityValue.getAbbrByValue(CityValue.valueOf(destination.toUpperCase()));
-        } catch (IllegalArgumentException e) {
-            System.out.println("*** we have n't trip for this city! ***");
-            return -1;
-        }
-
-        return (originValue + destinationValue) * BusType.getAbbrByValue(bus.getType()) * 10000;
     }
 
     private void showInformation() {

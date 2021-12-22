@@ -8,12 +8,12 @@ import java.util.Scanner;
 public class CreateScanner {
     private static Scanner scanner;
 
+    private CreateScanner() {
+    }
+
     public synchronized static Scanner getInstance() {
         if (scanner == null)
             scanner = new Scanner(System.in);
         return scanner;
-    }
-
-    private CreateScanner() {
     }
 }

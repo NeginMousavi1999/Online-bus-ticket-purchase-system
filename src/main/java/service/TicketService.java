@@ -6,7 +6,6 @@ import model.ticket.Ticket;
 import model.ticket.TicketViewRequest;
 import org.modelmapper.ModelMapper;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,8 +13,8 @@ import java.util.stream.Collectors;
  * @author Negin Mousavi
  */
 public class TicketService {
-    TicketDao ticketDao = new TicketDao();
     private final ModelMapper modelMapper = new ModelMapper();
+    TicketDao ticketDao = new TicketDao();
 
     public void save(Ticket ticket) {
         ticketDao.save(ticket);
@@ -39,9 +38,5 @@ public class TicketService {
 
     public Ticket getTicketById(int id) {
         return ticketDao.getById(id);
-    }
-
-    public Date getDateById(int id) {
-        return ticketDao.getDateById(id);
     }
 }

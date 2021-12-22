@@ -39,7 +39,7 @@ public class BusDao extends BaseDao {
         session.beginTransaction();
         String hql = "FROM Bus";
         System.out.println(hql);
-        Query<Bus> query = session.createQuery(hql);
+        Query<Bus> query = session.createQuery(hql, Bus.class);
         result = query.list();
         return result;
     }
